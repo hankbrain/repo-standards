@@ -1,0 +1,58 @@
+name: Feature / Change
+description: Propose a new feature, enhancement, or non-trivial change to the codebase.
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences describing what this is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Problem / Context
+      description: What problem does this solve? Why now? Link any prior discussion or related issues.
+    validations:
+      required: true
+
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed Approach
+      description: High-level plan. If this spans multiple issues, list them here and link the parent tracking issue (or note that this IS the parent).
+    validations:
+      required: false
+
+  - type: textarea
+    id: layer-impact
+    attributes:
+      label: Architecture / Layer Impact
+      # NOTE: reword this description per repo to match the repo's own
+      # layering vocabulary, and name its layers where it has them.
+      description: >-
+        Does this cross a layer boundary or introduce a new external
+        dependency? Call out any boundary it crosses. Write "N/A" if purely
+        internal with no layer or interface changes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Checklist of what "done" looks like.
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: Related Issues / Decisions
+      description: Link related issues, parent or child tracking issues, or decision log entries.
+    validations:
+      required: false

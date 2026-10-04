@@ -1,0 +1,43 @@
+name: Decision Proposal
+description: Propose a durable structural decision that will be recorded in the decision log.
+labels: ["type:architecture"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences describing the proposed decision.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Problem / Context
+      description: What situation forces this decision? What is ambiguous, colliding or inconsistent today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Decision
+      description: What should be decided, concretely.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Downstream Impact
+      description: Which repos, documents or modules need to be updated if this is accepted? Write "None" if the decision is self-contained.
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: Related Issues / Decisions
+      description: Link related issues or decision log entries. If accepted, this issue should be cross-linked from the resulting decision file.
+    validations:
+      required: false

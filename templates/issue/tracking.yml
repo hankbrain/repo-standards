@@ -1,0 +1,37 @@
+name: Tracking (multi-issue effort)
+description: Parent issue to track a larger effort that will be broken into multiple child issues.
+labels: ["type:tracking"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is this effort, and why does it need more than one issue?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Problem / Context
+      description: Background, and links to related discussion or decision log entries.
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Child Issues
+      description: Checklist of child issues. Add `- [ ] #<issue-number> Short description` as each child issue is created.
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: layer-impact
+    attributes:
+      label: Architecture / Layer Impact
+      description: Overall architectural shape of this effort (for example a new interface layer or a new external dependency). Detail per-layer impact in the child issues instead.
+    validations:
+      required: false
