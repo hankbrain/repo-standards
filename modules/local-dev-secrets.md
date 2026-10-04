@@ -11,9 +11,9 @@ whatever the deployment uses, not from this mechanism.
 
 A repo's `.env` never holds secret values. Secret keys hold secret references
 that a secrets manager resolves at launch, and non-secret configuration
-(hosts, ports, IDs, feature flags) stays a plain value. The examples below use
-1Password, where `op run --env-file=.env -- <command>` resolves the
-references.
+(hosts, ports, IDs, feature flags) stays a plain value. The examples below
+assume a secrets manager whose CLI can run a command with the references in
+`.env` resolved into its environment.
 
 - **Commit an example file** (`.env.example`) that shows the reference shape
   with no real values.
@@ -30,11 +30,12 @@ references.
 ## Reference shape
 
 ```
-op://<vault>/<item>/<field>
+<scheme>://<vault>/<item>/<field>
 ```
 
 Recommended conventions, to be filled in by the profile or adoption record:
 
+- **Scheme:** the URI scheme the chosen secrets manager uses for references.
 - **Vault:** one named vault for the repos covered.
 - **Item title:** `<scope>-<system>[-<env>]`, lowercase, characters `a-z 0-9 -`
   only. Spaces, parentheses, slashes, underscores and capitals can make a
