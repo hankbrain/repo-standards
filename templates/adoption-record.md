@@ -33,6 +33,8 @@ Why the repo is adopting the base now, and what it followed before.
 - `component:*` labels: yes, with the values in use | no
 - Issue templates: yes | no
 - Local development secrets: yes | no
+- Dependency locking: yes, with tool, lockfile paths and kind (application or
+  library) | no
 - Document drafting lifecycle: yes | not applicable
 
 **Labels in use:**
