@@ -35,6 +35,8 @@ Why the repo is adopting the base now, and what it followed before.
 - Local development secrets: yes | no
 - Dependency locking: yes, with tool, lockfile paths and kind (application or
   library) | no
+- Branching and release: yes, with halves adopted and `type:*` prefixes |
+  no
 - Document drafting lifecycle: yes | not applicable
 
 **Labels in use:**

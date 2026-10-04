@@ -16,7 +16,7 @@ copies drift.
 - How a repo keeps a decision log and any additional record artifacts.
 - How code comments and docstrings are written.
 - A few opt-in modules for adjacent practices: issue templates, local
-  development secrets, dependency locking, document drafting.
+  development secrets, dependency locking, branching and release, document drafting.
 
 ## Contents
 
