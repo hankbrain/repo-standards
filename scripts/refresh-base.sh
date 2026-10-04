@@ -4,9 +4,13 @@
 # Run from the consumer repo root. The default target is ./base. The target
 # directory is replaced with the contents of the tag, and VERSION inside it
 # is set to the tag. Needs curl and tar; no clone of the base is required.
+# The script refuses to run unless the current directory contains .git (a
+# directory, or a file in a worktree), and nothing is downloaded or changed.
 #
 # BASE_ARCHIVE_URL overrides the download URL, for testing against a local
 # archive (file:// URLs work).
+# BASE_SKIP_ROOT_CHECK=1 skips the repo root check, for tests and for use
+# outside a git repo.
 set -euo pipefail
 
 repo="hankbrain/repo-standards"
@@ -26,6 +30,13 @@ main() {
       ;;
   esac
 
+  if [ -z "${BASE_SKIP_ROOT_CHECK:-}" ] && [ ! -e .git ]; then
+    echo "not a repo root: no .git in $PWD" >&2
+    echo "would have written to: $PWD/$target" >&2
+    echo "run from the repo root, or set BASE_SKIP_ROOT_CHECK=1" >&2
+    return 1
+  fi
+
   local url="${BASE_ARCHIVE_URL:-https://github.com/$repo/archive/refs/tags/$tag.tar.gz}"
   local work
   work="$(mktemp -d)"
@@ -44,10 +55,12 @@ main() {
 
   # Replace in one step at the end, so a failed download leaves the old copy.
   # The script may live inside the target, so nothing runs after the swap.
-  rm -rf "$target"
   mkdir -p "$(dirname "$target")"
+  local abs
+  abs="$(cd "$(dirname "$target")" && pwd -P)/$(basename "$target")"
+  rm -rf "$target"
   mv "$work/new" "$target"
-  echo "$target now at $tag"
+  echo "$abs now at $tag"
 }
 
 main "$@"

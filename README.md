@@ -82,13 +82,16 @@ the core first and add modules later.
 ## Refreshing
 
 Never edit `base/` in place. A change to a generic rule is made here first
-and then pulled in:
+and then pulled in. Run this from the repo root; the script refuses to run
+from anywhere without a `.git` entry:
 
 ```sh
 bash base/scripts/refresh-base.sh <new-tag>
 ```
 
 The script replaces `base/` with the new tag and rewrites `base/VERSION`.
+It prints the absolute path it replaced. Set `BASE_SKIP_ROOT_CHECK=1` to
+skip the root check outside a git repo.
 Review the diff, and revisit the adoption record if a change affects any of
 its fields.
 
