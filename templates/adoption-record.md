@@ -37,6 +37,9 @@ Why the repo is adopting the base now, and what it followed before.
   library) | no
 - Branching and release: yes, with halves adopted and `type:*` prefixes |
   no
+- Agent-operable CLI: yes, with the service layer, command shape and
+  entry-point map | no (not applicable without a UI and a CLI over a shared
+  service layer)
 - Document drafting lifecycle: yes | not applicable
 
 **Labels in use:**
