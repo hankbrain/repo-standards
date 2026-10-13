@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Check the commit message and the branch name for private names.
+here="$(cd "$(dirname "$0")" && pwd -P)"
+{ grep -v '^#' "$1"; git rev-parse --abbrev-ref HEAD; } | bash "$here/check-public-text.sh"

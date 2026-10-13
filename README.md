@@ -102,6 +102,25 @@ Tags follow SemVer, starting at `v0.1.0`. A tag is cut each time a decision
 in [`decisions/`](decisions/) is accepted, and each consumer's `base/VERSION`
 records the tag it follows.
 
+## Contributing
+
+This repo is public and holds nothing specific to any private repo, app or
+person. Hooks in `.githooks/` check commit messages, branch names and added
+lines for private names. After cloning:
+
+```sh
+git config core.hooksPath .githooks
+mkdir -p ~/.config/repo-standards
+```
+
+Then list the names to block, one per line, in
+`~/.config/repo-standards/denylist.txt`. The denylist stays outside the repo
+because committing it would publish the names. Without it the hooks still
+block references to other repos, local paths and email addresses, but warn
+that the name check did not run. Hooks cannot see issue, comment or pull
+request text, so run `bash .githooks/check-public-text.sh <file>` on a body
+before posting it. See `CLAUDE.md` for the full rule.
+
 ## License
 
 MIT. See [`LICENSE`](LICENSE).
