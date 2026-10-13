@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Check the lines this commit adds for private names.
+here="$(cd "$(dirname "$0")" && pwd -P)"
+git diff --cached -U0 --no-color --diff-filter=AM -- . ':!.githooks' \
+  | grep -E '^\+[^+]' | sed 's/^+//' | bash "$here/check-public-text.sh"
