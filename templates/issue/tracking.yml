@@ -21,12 +21,10 @@ body:
   - type: textarea
     id: checklist
     attributes:
-      label: Child Issues
-      description: Checklist of child issues. Add `- [ ] #<issue-number> Short description` as each child issue is created.
-      value: |
-        - [ ]
+      label: Child Issues (optional notes)
+      description: Add each child as a GitHub sub-issue, which is what links it to this epic. A checklist here is optional and only worth keeping where it adds notes, such as `- [ ] #<issue-number> Short description`.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: layer-impact

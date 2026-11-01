@@ -38,8 +38,8 @@ shape.
 
 | Repo kind | Suggested values |
 |---|---|
-| Code | `feature`, `bug`, `chore`, optional `tracking` |
-| Research | `research`, `task`, optional `tracking`. `architecture` and `doc-update` apply only to repos that adopt the decision log module. |
+| Code | `feature`, `bug`, `chore`, `tracking` |
+| Research | `research`, `task`, `tracking`. `architecture` and `doc-update` apply only to repos that adopt the decision log module. |
 
 - `feature`: new capability or enhancement.
 - `bug`: something is not working.
@@ -50,8 +50,8 @@ shape.
   decision log entry.
 - `doc-update`: a content fix to existing reference documents with no
   architectural change.
-- `tracking`: a parent issue for a multi-issue effort, paired with a Markdown
-  checklist of child issues in its body.
+- `tracking`: an epic, a parent issue for a multi-issue effort. Its children
+  are GitHub sub-issues. See section 5.
 
 A repo may add values and record them in its adoption record.
 
@@ -101,7 +101,42 @@ choices stay in the issue.
 migration or a rollout is recorded by closing its issue. If the work required
 a call that will matter later, that call is the decision.
 
-## 5. Commit and push rule
+## 5. Epics and sub-issues
+
+An epic is a `type:tracking` issue. Its body states the overall outcome and
+the feature set. Its children are real GitHub sub-issues (the parent link),
+not only a checklist. A body checklist is optional and kept only where it adds
+notes.
+
+- **When a second issue joins an effort, ask whether it should be an epic.**
+  Two related issues do not always need one. If it should, create the epic
+  and attach both, so the parent is not retrofitted later. A one-off below the
+  filing threshold needs no epic.
+- **Each child is a small, deployable chunk:** one branch, one pull request,
+  one `Closes #N`. An epic itself gets no branch (see
+  [`modules/branching-and-release.md`](../modules/branching-and-release.md)).
+- **No issue that belongs to an effort is left without a parent.** Nest at
+  most two levels under a top-level domain or area issue (area, then project,
+  then work). GitHub allows deeper nesting, but two is the recommendation.
+- **Check for orphans** by listing open issues that have no parent. Review the
+  result and place or close each one. Issues that are genuine one-offs
+  are expected in the list.
+
+```sh
+gh api graphql --paginate -F owner='{owner}' -F name='{repo}' -f query='
+query($owner:String!,$name:String!,$endCursor:String){
+  repository(owner:$owner,name:$name){
+    issues(states:OPEN,first:100,after:$endCursor){
+      nodes{number title parent{number}}
+      pageInfo{hasNextPage endCursor}
+    }
+  }
+}' --jq '.data.repository.issues.nodes[]|select(.parent==null)|"#\(.number) \(.title)"'
+```
+
+Run it from a clone, so `gh` fills in the owner and repo.
+
+## 6. Commit and push rule
 
 Restate this locally in every repo's instructions file. Do not rely only on
 an inherited personal instruction, because a teammate or a differently
@@ -114,13 +149,13 @@ when told to, separately from the commit.
 Use closing keywords in commit messages and pull request descriptions
 (`Closes #12`). For an issue in another repo, use `Closes owner/repo#12`.
 
-## 6. Referencing across repos
+## 7. Referencing across repos
 
 Reference another repo's issues, decisions and files as `owner/repo#N` or
 `owner/repo` plus a path, so the reference survives copying into a different
 repo.
 
-## 7. Formatting
+## 8. Formatting
 
 Issue, pull request and comment bodies are not hard-wrapped. Write each
 paragraph or bullet as a single line and let GitHub wrap it. Those bodies are
@@ -130,7 +165,7 @@ read.
 Markdown files committed to a repo are hard-wrapped at about 80 columns, so
 diffs stay clean.
 
-## 8. The adoption record
+## 9. The adoption record
 
 Applying the base to a repo is itself a setup decision. Record:
 
