@@ -9,7 +9,7 @@ adapt them.
 | Template | Use | Label preselected |
 |---|---|---|
 | `feature_change.yml` | A new feature or non-trivial change. Code repos. | `type:feature` |
-| `tracking.yml` | A parent issue with a checklist of child issues. | `type:tracking` |
+| `tracking.yml` | An epic. Children are attached as GitHub sub-issues. | `type:tracking` |
 | `decision_proposal.yml` | A proposed durable decision. Repos with a decision log. | `type:architecture` |
 
 ## Adapting
