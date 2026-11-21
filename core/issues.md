@@ -64,7 +64,8 @@ values once the repo has real structure worth splitting on, not before.
 ### State labels
 
 - `needs-triage`: newly filed, not yet routed or sized.
-- `blocked`: cannot proceed yet. See section 3.
+- `blocked`: cannot proceed yet. Always applied to a blocked issue. See
+  section 3.
 - `needs-decision` (optional): waiting on a call that has not been made.
 
 ### Defaults and migration
@@ -79,11 +80,67 @@ Existing repos migrate labels when they adopt. Issues that end up with no
 type, or more than one, are cleanup during adoption and not a violation of
 the base.
 
-## 3. The `blocked` rule
+## 3. Native links and the `blocked` rule
 
-When the blocker is a tracked issue, use GitHub's native blocked-by link.
-When it is not, add the `blocked` label and a `## Blocker` heading in the
-issue body that names the blocker. The label alone is not enough.
+Record every relationship between issues with GitHub's native link, not with
+text. A mention in the body or a checklist entry is not a substitute, because
+GitHub cannot query it, show it in the sidebar or clear it automatically. A
+body mention is still fine as extra context.
+
+| Relationship | Native link |
+|---|---|
+| Belongs to a larger effort or area | Parent (sub-issue) |
+| Cannot proceed until another issue closes | Blocked by (or blocking, from the other side) |
+| Related, with no dependency | Relates to |
+
+- **Apply the `blocked` label to any issue that cannot proceed**, whatever
+  the blocker is. One label gives one filter that finds every blocked issue.
+- **When the blocker is an issue, also add the native blocked-by link.**
+- **When the blocker is not an issue** (an external dependency, a decision, a
+  person, a date), the label plus a `## Blocker` heading in the issue body
+  naming it is the record. The heading is also useful beside a link when
+  there is context to add, but is only required for the non-issue case.
+- **Remove the label when the issue is unblocked.** GitHub clears its own
+  blocked indicator when the blocker closes, but the label stays until
+  someone removes it.
+
+Parents are covered in section 5. They are not limited to epics.
+
+### Checking blocked state
+
+List open issues whose labels and native links disagree. Run it from a clone,
+so `gh` fills in the owner and repo. The query reads up to 20 labels and 50
+blockers per issue.
+
+```sh
+gh api graphql --paginate -F owner='{owner}' -F name='{repo}' -f query='
+query($owner:String!,$name:String!,$endCursor:String){
+  repository(owner:$owner,name:$name){
+    issues(states:OPEN,first:100,after:$endCursor){
+      nodes{
+        number title
+        labels(first:20){nodes{name}}
+        blockedBy(first:50){nodes{number state}}
+      }
+      pageInfo{hasNextPage endCursor}
+    }
+  }
+}' --jq '.data.repository.issues.nodes[]
+  | (.labels.nodes|map(.name)|index("blocked")!=null) as $label
+  | (.blockedBy.nodes|map(select(.state=="OPEN"))|length) as $open
+  | (.blockedBy.nodes|length) as $links
+  | if $open>0 and ($label|not) then "missing label: #\(.number) \(.title)"
+    elif $label and $links>0 and $open==0 then "stale label: #\(.number) \(.title)"
+    else empty end'
+```
+
+- `missing label`: a native blocked-by link to an open issue, but no
+  `blocked` label. Add the label.
+- `stale label`: the label, with native blocked-by links that are all closed.
+  Remove the label, or check whether the real blocker was never an issue.
+
+An issue with the label and no link at all is expected (a non-issue blocker)
+and is not listed.
 
 ## 4. Filing thresholds
 
@@ -115,9 +172,11 @@ notes.
 - **Each child is a small, deployable chunk:** one branch, one pull request,
   one `Closes #N`. An epic itself gets no branch (see
   [`modules/branching-and-release.md`](../modules/branching-and-release.md)).
-- **No issue that belongs to an effort is left without a parent.** Nest at
-  most two levels under a top-level domain or area issue (area, then project,
-  then work). GitHub allows deeper nesting, but two is the recommendation.
+- **No issue that belongs to an effort is left without a parent.** The parent
+  is a native link, and it need not be an epic: an area or domain issue is a
+  valid parent for work that belongs to it. Nest at most two levels under a
+  top-level domain or area issue (area, then project, then work). GitHub
+  allows deeper nesting, but two is the recommendation.
 - **Check for orphans** by listing open issues that have no parent. Review the
   result and place or close each one. Issues that are genuine one-offs
   are expected in the list.

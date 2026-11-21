@@ -38,6 +38,6 @@ body:
     id: related
     attributes:
       label: Related Issues / Decisions
-      description: Link related issues or decision log entries. If accepted, this issue should be cross-linked from the resulting decision file.
+      description: Add related issues with the native "relates to" link (a body mention alone is not a substitute). Mention decision log entries here. If accepted, this issue should be cross-linked from the resulting decision file.
     validations:
       required: false

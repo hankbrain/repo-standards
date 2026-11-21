@@ -14,7 +14,7 @@ body:
     id: context
     attributes:
       label: Problem / Context
-      description: What problem does this solve? Why now? Link any prior discussion or related issues.
+      description: What problem does this solve? Why now? Link any prior discussion. Record related issues with the native "relates to" link.
     validations:
       required: true
 
@@ -53,6 +53,6 @@ body:
     id: related
     attributes:
       label: Related Issues / Decisions
-      description: Link related issues, parent or child tracking issues, or decision log entries.
+      description: Add related issues with the native "relates to" link, a parent with the native parent link, and blockers with the native "blocked by" link. Mention decision log entries here. A body mention alone is not a substitute for the native link.
     validations:
       required: false

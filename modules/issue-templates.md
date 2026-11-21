@@ -22,5 +22,9 @@ adapt them.
 - **Keep the fields stable** otherwise. The shared shape (summary, context,
   proposal or approach, impact, related issues) is what makes issues readable
   across repos.
+- **Relationships use native links.** The "related" field's description tells
+  the filer to use GitHub's relates-to, parent and blocked-by links, not only
+  text in the body. See section 3 of [`core/issues.md`](../core/issues.md).
+  Keep that wording when adapting the field.
 
 Template bodies are not hard-wrapped, like any issue body.
