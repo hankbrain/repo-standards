@@ -23,7 +23,7 @@ copies drift.
 
 | Path | Holds |
 |---|---|
-| [`core/issues.md`](core/issues.md) | Issues, the suggested label shape, the `blocked` rule, filing thresholds, commit and push rule, the adoption record. Every adopter. |
+| [`core/issues.md`](core/issues.md) | Issues, the suggested label shape, native issue links and the `blocked` rule, filing thresholds, commit and push rule, the adoption record. Every adopter. |
 | [`core/comments.md`](core/comments.md) | Comment and docstring standard. Code repos. |
 | [`modules/`](modules/) | Opt-in practices, one file each. A repo declares which it adopts. |
 | [`templates/`](templates/) | The adoption record template and generic issue templates. |

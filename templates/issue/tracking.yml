@@ -14,7 +14,7 @@ body:
     id: context
     attributes:
       label: Problem / Context
-      description: Background, and links to related discussion or decision log entries.
+      description: Background, and links to related discussion or decision log entries. Record related issues with the native "relates to" link.
     validations:
       required: true
 
