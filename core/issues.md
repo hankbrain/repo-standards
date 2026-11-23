@@ -200,7 +200,10 @@ Run it from a clone, so `gh` fills in the owner and repo.
 
 Restate this locally in every repo's instructions file. Do not rely only on
 an inherited personal instruction, because a teammate or a differently
-configured agent session may not inherit it.
+configured agent session may not inherit it. This is the only rule restated
+in full. Every other rule is pointed at, not paraphrased (see "Point, do not
+restate" in the [README](../README.md)). Name this section as the source of
+the restated text.
 
 Never commit or push without explicit instruction. The default flow is to
 make changes and stop for review. Commit only when told to, and push only

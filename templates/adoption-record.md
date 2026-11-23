@@ -71,4 +71,6 @@ What changes in the repo as a result: labels to migrate, files to rename,
 instructions to update. Note anything deliberately left undone.
 ```
 
-Revisit the record when a base refresh changes any of its fields.
+Revisit the record when a base refresh changes any of its fields. Also search
+the repo's instructions file for any rule the new tag changed, and replace a
+paraphrase with a pointer (see "Point, do not restate" in the README).
