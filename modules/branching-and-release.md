@@ -28,9 +28,12 @@ pick its own scheme and drift. It names no tool and no adopter.
 - **One issue per branch**, with `Closes #N` in the pull request body. Every
   change that has an issue goes through a branch and a pull request.
 - **Exception:** changes below the filing threshold in
-  [`core/issues.md`](../core/issues.md) (typos, one-line fixes, small document
-  tweaks) may go directly to `main`. They have no issue number to name a
-  branch after.
+  [`core/issues.md`](../core/issues.md) (typos, one-line fixes) may go
+  directly to `main`. They have no issue number to name a branch after. A
+  document change that belongs to an issue (a decision file, a progress entry,
+  a regenerated index) is not below the threshold, however small. Create the
+  issue's branch before the first edit. If you have already edited on `main`,
+  move the change to the branch before committing.
 - **Short-lived.** Target under one week. Rebase on `main` daily while the
   branch is active.
 - **Squash-merge by default.** Exception: a pure rename or move change, where

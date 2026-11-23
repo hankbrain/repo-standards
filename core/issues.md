@@ -146,8 +146,9 @@ and is not listed.
 
 **File an issue** for new features, multi-file refactors, new external
 dependencies or integrations, and anything spanning more than one work
-session. Skip it for typos, one-line fixes and small document tweaks. Use
-judgment, but default to filing rather than silently skipping.
+session. Skip it for typos and one-line fixes. A document change that belongs
+to an existing issue is part of that issue, not a skipped one. Use judgment,
+but default to filing rather than silently skipping.
 
 **Log a decision** only when the choice is durable and reusable beyond the
 one issue that prompted it, such as a layer-boundary change, a new package
