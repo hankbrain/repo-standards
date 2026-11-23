@@ -54,6 +54,22 @@ single repo's additions go in its own instructions file, not in a profile
 repo. If that repo later gains siblings that share those values, the group
 gets a profile.
 
+### Point, do not restate
+
+Each layer states only what belongs to it and points at the layer above for
+the rest. A profile points at the base and adds the values its repos share. A
+repo's instructions file points at its profile and the base and adds only its
+own values (branch prefixes, adopted modules, local label dimensions). A rule
+that a higher layer already states is not paraphrased in a lower one, because
+a paraphrase is not updated by a refresh and drifts.
+
+The one rule restated in full is the commit and push rule, because it must
+hold even when nothing else is read. See section 6 of
+[`core/issues.md`](core/issues.md). Any restated rule names the file it comes
+from, so a change there can be found by search.
+
+After a refresh, search the instructions file for rules the new tag changed.
+
 ## Adopting the base
 
 1. Decide the repo's kind and which modules it adopts.
